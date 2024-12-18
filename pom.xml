@@ -31,9 +31,22 @@
         <spring-cloud.version>2024.0.0</spring-cloud.version>
     </properties>
     <dependencies>
+            <!-- I was using this wrong dependency. -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-gateway-mvc</artifactId>-->
+<!--        </dependency>-->
+
+        <!-- Use 'Reactive Gateway' (from Initializr) to route the requests to the appropriate services -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway-mvc</artifactId>
+            <artifactId>spring-cloud-starter-gateway</artifactId>
+        </dependency>
+
+        <!-- Use Eureka Service Registry to find out the available services in the service-registry  -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
         <dependency>
