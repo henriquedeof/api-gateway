@@ -1,0 +1,29 @@
+server:
+    port: 8080
+
+spring:
+    application:
+        name: dl-api-gateway
+    cloud:
+        gateway:
+            routes:
+                # The id is the name of the service that is being mapped in the API Gateway.
+                - id: authuser-service
+#                  uri: http://localhost:8087/ # This was the old hardcoded URL. I am now using the service name defined in the Eureka (See Eureka URL http://localhost:8761/). 'lb' is the load balancer.
+                  uri: lb://DL-AUTHUSER-SERVICE
+                  predicates:
+                      # The path is the context path of the authuser service that is being mapped in the API Gateway (see the authuser context path in the authuser >> application.yaml).
+                      - Path=/dl-authuser/**
+                - id: course-service
+#                  uri: http://localhost:8082/
+                  uri: lb://DL-COURSE-SERVICE
+                  predicates:
+                      # The path is the context path of the course service that is being mapped in the API Gateway (see the course context path in the course >> application.yaml).
+                      - Path=/dl-course/**
+
+eureka:
+    client:
+        service-url:
+            defaultZone: 'http://localhost:8761/eureka'
+    instance:
+        hostname: localhost
