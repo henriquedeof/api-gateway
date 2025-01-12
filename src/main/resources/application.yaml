@@ -10,16 +10,25 @@ spring:
                 # The id is the name of the service that is being mapped in the API Gateway.
                 - id: authuser-service
 #                  uri: http://localhost:8087/ # This was the old hardcoded URL. I am now using the service name defined in the Eureka (See Eureka URL http://localhost:8761/). 'lb' is the load balancer.
+#                  DL-AUTHUSER-SERVICE comes from Eureka server. It is the name of the service that is registered in the Eureka server.
                   uri: lb://DL-AUTHUSER-SERVICE
                   predicates:
                       # The path is the context path of the authuser service that is being mapped in the API Gateway (see the authuser context path in the authuser >> application.yaml).
                       - Path=/dl-authuser/**
                 - id: course-service
 #                  uri: http://localhost:8082/
+#                  DL-COURSE-SERVICE comes from Eureka server. It is the name of the service that is registered in the Eureka server.
                   uri: lb://DL-COURSE-SERVICE
                   predicates:
                       # The path is the context path of the course service that is being mapped in the API Gateway (see the course context path in the course >> application.yaml).
                       - Path=/dl-course/**
+                - id: notification-service
+#                  uri: http://localhost:8084/
+#                  NOTIFICATION comes from Eureka server. It is the name of the service that is registered in the Eureka server.
+                  uri: lb://NOTIFICATION
+                  predicates:
+                      # The path is the context path of the course service that is being mapped in the API Gateway (see the course context path in the course >> application.yaml).
+                      - Path=/dl-notification/**
 
 eureka:
     client:
