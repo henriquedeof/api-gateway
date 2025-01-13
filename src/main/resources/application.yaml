@@ -27,12 +27,18 @@ spring:
 #                  NOTIFICATION comes from Eureka server. It is the name of the service that is registered in the Eureka server.
                   uri: lb://NOTIFICATION
                   predicates:
-                      # The path is the context path of the course service that is being mapped in the API Gateway (see the course context path in the course >> application.yaml).
+                      # The path is the context path of the notification service that is being mapped in the API Gateway (see the notification context path in the notification >> application.yaml).
                       - Path=/dl-notification/**
+
+# service-registry now is using Spring Security, so we need to provide the username and password to access it.
+dl:
+    serviceRegistry:
+        username: admin
+        password: 'admin'
 
 eureka:
     client:
         service-url:
-            defaultZone: 'http://localhost:8761/eureka'
+            defaultZone: 'http://${dl.serviceRegistry.username}:${dl.serviceRegistry.password}@localhost:8761/eureka'
     instance:
         hostname: localhost
